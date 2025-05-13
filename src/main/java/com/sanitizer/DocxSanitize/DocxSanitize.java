@@ -22,19 +22,19 @@ public class DocxSanitize {
             //To access the document metadata
             POIXMLProperties props = doc.getProperties();
             POIXMLProperties.CoreProperties core = props.getCoreProperties();
-            core.setCreator("");               // Clears Author
-            core.setTitle("");                 // Clears Title
-            core.setSubjectProperty("");       // Clears Subject
-            core.setDescription("");           // Clears Comments/Description
-            core.setKeywords("");              // Clears Keywords
-            core.setLastModifiedByUser("");    // Clears 'Last saved by'
-            core.setCategory("");              // Clears Category
+            core.setCreator(null);               // Clears Author
+            core.setTitle(null);                 // Clears Title
+            core.setSubjectProperty(null);       // Clears Subject
+            core.setDescription(null);           // Clears Comments/Description
+            core.setKeywords(null);              // Clears Keywords
+            core.setLastModifiedByUser(null);    // Clears 'Last saved by'
+            core.setCategory(null);              // Clears Category
 
             //Remove all extended document properties
             POIXMLProperties.ExtendedProperties ext = props.getExtendedProperties();
-            ext.setCompany("");
-            ext.setManager("");
-            ext.setHyperlinkBase("");
+            ext.setCompany(null);
+            ext.setManager(null);
+            ext.setHyperlinkBase(null);
 
             //Remove all custom document properties
             POIXMLProperties.CustomProperties custom = props.getCustomProperties();
