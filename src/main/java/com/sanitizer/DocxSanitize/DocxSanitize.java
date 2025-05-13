@@ -13,8 +13,13 @@ public class DocxSanitize {
     public static void main(String[] args) {
         try {
             File file = new File("TestSanitize.docx");
+            //Since docx is a zip file so to unzip programmatically, Open packaging conventions(OPC) is used
             OPCPackage pkg = OPCPackage.open(file);
+
+            //XML Word Processor Format to gain access to content and metadata in the docx
             XWPFDocument doc = new XWPFDocument(pkg);
+
+            //To access the document metadata
             POIXMLProperties props = doc.getProperties();
             POIXMLProperties.CoreProperties core = props.getCoreProperties();
             core.setCreator("");               // Clears Author
@@ -24,18 +29,20 @@ public class DocxSanitize {
             core.setKeywords("");              // Clears Keywords
             core.setLastModifiedByUser("");    // Clears 'Last saved by'
             core.setCategory("");              // Clears Category
-            core.setContentStatus("");         // Clears Status
 
+            //Remove all extended document properties
             POIXMLProperties.ExtendedProperties ext = props.getExtendedProperties();
             ext.setCompany("");
             ext.setManager("");
             ext.setHyperlinkBase("");
 
+            //Remove all custom document properties
             POIXMLProperties.CustomProperties custom = props.getCustomProperties();
             if(custom!= null) {
                 List<CTProperty> list = custom.getUnderlyingProperties().getPropertyList();
                 list.clear();
             }
+
             FileOutputStream fos = new FileOutputStream("Sanitized.docx");
             doc.write(fos);
             fos.close();
