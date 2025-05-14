@@ -23,10 +23,12 @@ public class DocxSanitize {
             //Get all comments from the document
             XWPFComment[] comments = doc.getComments();
 
+            //Iterate through each Comment's Author, Data and Initials
             if(comments != null) {
                 for(XWPFComment comment : comments) {
                     comment.setAuthor(null);
                     comment.setInitials(null);
+                    //comment.setDate(null);
                 }
             }
 
@@ -43,9 +45,9 @@ public class DocxSanitize {
 
             //Remove all extended document properties
             POIXMLProperties.ExtendedProperties ext = props.getExtendedProperties();
-            ext.setCompany(null);
-            ext.setManager(null);
-            ext.setHyperlinkBase(null);
+            ext.setCompany(null);                // Clears Company
+            ext.setManager(null);                // Clears Manager
+            ext.setHyperlinkBase(null);          // Clears HyperLinkBase
 
             //Remove all custom document properties
             POIXMLProperties.CustomProperties custom = props.getCustomProperties();
