@@ -2,6 +2,7 @@ package com.sanitizer.DocxSanitize;
 
 import org.apache.poi.ooxml.POIXMLProperties;
 import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.xwpf.usermodel.XWPFComment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.openxmlformats.schemas.officeDocument.x2006.customProperties.CTProperty;
 
@@ -18,6 +19,16 @@ public class DocxSanitize {
 
             //XML Word Processor Format to gain access to content and metadata in the docx
             XWPFDocument doc = new XWPFDocument(pkg);
+
+            //Get all comments from the document
+            XWPFComment[] comments = doc.getComments();
+
+            if(comments != null) {
+                for(XWPFComment comment : comments) {
+                    comment.setAuthor(null);
+                    comment.setInitials(null);
+                }
+            }
 
             //To access the document metadata
             POIXMLProperties props = doc.getProperties();
