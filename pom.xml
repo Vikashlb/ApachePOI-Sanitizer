@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.sanitizer</groupId>
-	<artifactId>ApachePOI-Sanitisation</artifactId>
+	<artifactId>ApachePOI-Sanitizer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>DocxSanitize</name>
