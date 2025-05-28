@@ -1,11 +1,14 @@
 package com.sanitizer.DocxSanitize;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.poi.ooxml.POIXMLProperties;
 import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.sl.usermodel.PictureData;
 import org.apache.poi.xslf.usermodel.*;
 import org.openxmlformats.schemas.officeDocument.x2006.customProperties.CTProperty;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.List;
 
@@ -64,6 +67,13 @@ public class PptxSanitize {
             List<XSLFSlide> slides = ppt.getSlides();
             XSLFSlide thirdSlide = slides.get(2);
             ppt.setSlideOrder(thirdSlide, 4); //move the slide at index 2 to index 4
+
+            //Add image in a slide
+            String imagePath = "devon-logo-blue.png";
+            byte[] pictureData = IOUtils.toByteArray(new FileInputStream(imagePath));
+            XSLFPictureData pd = ppt.addPicture(pictureData, PictureData.PictureType.PNG);
+            XSLFSlide slide = ppt.createSlide();
+            slide.createPicture(pd).setAnchor(new java.awt.Rectangle(100,100,400,300));
 
             FileOutputStream fos = new FileOutputStream("Sanitized.pptx");
             ppt.write(fos);
